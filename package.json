@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node src/start.js",
-    "test": "NODE_ENV=test ava",
+    "test": "ava",
     "dev": "node-dev -r babel-register src/start.js"
   },
   "devDependencies": {
