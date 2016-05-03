@@ -1,11 +1,17 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 
-const server = new Koa();
-const router = new Router();
+import db from './db';
 
-router.get('/', async (ctx) => {
-  ctx.body = 'Hello World!';
+// Setup our server
+const server = new Koa();
+const router = new Router({
+  prefix: '/api',
+});
+
+// List images
+router.get('/images', async (ctx) => {
+  ctx.body = await db.findAsync({});
 });
 
 // Add routes to the server

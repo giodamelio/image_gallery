@@ -3,9 +3,9 @@ import supertest from 'supertest-as-promised';
 
 import server from '../src';
 
-test(() => (
+test('List images', () => (
   supertest(server.listen())
-    .get('/')
+    .get('/api/images')
     .expect(200)
-    .expect('Hello World!')
+    .expect([])
 ));

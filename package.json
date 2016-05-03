@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node src/start.js",
-    "test": "ava",
+    "test": "NODE_ENV=test ava",
     "dev": "node-dev -r babel-register src/start.js"
   },
   "devDependencies": {
@@ -26,8 +26,10 @@
     "supertest-as-promised": "^3.1.0"
   },
   "dependencies": {
+    "bluebird": "^3.3.5",
     "koa": "^2.0.0",
-    "koa-router": "^7.0.1"
+    "koa-router": "^7.0.1",
+    "nedb": "^1.8.0"
   },
   "ava": {
     "files": [
