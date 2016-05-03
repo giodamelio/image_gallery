@@ -58,3 +58,32 @@ test('Add image', async (t) => {
   const data = await t.context.database.findAsync({});
   t.is(data.length, 4);
 });
+
+test('Fail adding images with incorrect data', async (t) => {
+  const bodies = [
+    'HAHA',
+    {
+      description: 'Missing a url',
+    },
+    {
+      url: 'Invalid url',
+    },
+    {
+      url: 'https://a_valid.com/url.jpg',
+      description: 'description too long description too long description too long description too long description too long description too long description too long description too long description too long description too long description too long description too long description too long', // eslint-disable-line max-len
+    },
+    null,
+    undefined,
+  ];
+  t.plan(bodies.length);
+
+  for (const body of bodies) {
+    await supertest(t.context.server.listen())
+      .post('/api/images')
+      .send(body)
+      .expect(400)
+      .expect((res) => {
+        t.is(res.body.error, 'Invalid data');
+      });
+  }
+});

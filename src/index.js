@@ -1,12 +1,40 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
+import bluebird from 'bluebird';
+import originalJoi from 'joi';
+
+const joi = bluebird.promisifyAll(originalJoi);
+
+// Schema for a new image
+const imageSchema = joi.object().keys({
+  url: joi.string().required().uri(),
+  description: joi.string().max(255),
+});
 
 export default (database) => {
   // Setup our server
   const server = new Koa();
   const router = new Router({
     prefix: '/api',
+  });
+
+  // Handle validitation errors
+  router.use(async (ctx, next) => {
+    try {
+      await next();
+    } catch (err) {
+      if (err.isJoi) {
+        ctx.status = 400;
+        ctx.body = {
+          error: 'Invalid data',
+          details: err.details,
+        };
+      } else {
+        // Pass it up the chain
+        throw err;
+      }
+    }
   });
 
   // List images
@@ -22,11 +50,29 @@ export default (database) => {
 
   // Add image
   router.post('/images', async(ctx) => {
-    const image = await database.insertAsync(ctx.request.body);
+    // Validate new image data
+    const newImage = await joi.validateAsync(ctx.request.body, imageSchema);
+
+    // Add the image to the database
+    const image = await database.insertAsync(newImage);
+
     ctx.body = image;
   });
 
   // Middleware
+
+  // Handle unhandled errors
+  server.use(async (ctx, next) => {
+    try {
+      await next();
+    } catch (err) {
+      ctx.status = 500;
+      ctx.body = 'Internal Server Error';
+      console.error(err); // eslint-disable-line no-console
+    }
+  });
+
+  // Parse the json bodies
   server.use(bodyParser());
 
   // Add routes to the server
