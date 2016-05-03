@@ -20,5 +20,8 @@
     "eslint-plugin-import": "^1.6.0",
     "eslint-plugin-markdown": "^1.0.0-beta.1",
     "node-dev": "^3.1.1"
+  },
+  "dependencies": {
+    "koa": "^2.0.0"
   }
 }
