@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "func-names": 0,
+    "spaced-comment": [2, "always", { "markers": ["/"] }],
+  },
+  "env": {
+    "browser": true
+  },
+}
