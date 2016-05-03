@@ -6,10 +6,10 @@
   "author": "Gio d'Amelio",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node src/start.js",
+    "start": "babel-node server/src/start.js",
     "test": "ava",
-    "dev": "node-dev -r babel-register src/start.js",
-    "lint": "eslint src/ test/"
+    "dev": "node-dev -r babel-register server/src/start.js",
+    "lint": "eslint server/"
   },
   "devDependencies": {
     "ava": "^0.14.0",
@@ -36,7 +36,7 @@
   },
   "ava": {
     "files": [
-      "test/*.js"
+      "server/test/*.js"
     ],
     "require": [
       "babel-register"
