@@ -1,6 +1,9 @@
+import path from 'path';
+
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
+import koaStatic from 'koa-static';
 import bluebird from 'bluebird';
 import originalJoi from 'joi';
 
@@ -78,6 +81,9 @@ export default (database) => {
   // Add routes to the server
   server.use(router.routes());
   server.use(router.allowedMethods());
+
+  // Serve static content
+  server.use(koaStatic(path.join(__dirname, '../../client/dist/')));
 
   return server;
 };
