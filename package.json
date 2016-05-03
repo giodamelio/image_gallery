@@ -8,7 +8,8 @@
   "scripts": {
     "start": "babel-node src/start.js",
     "test": "ava",
-    "dev": "node-dev -r babel-register src/start.js"
+    "dev": "node-dev -r babel-register src/start.js",
+    "lint": "eslint src/ test/"
   },
   "devDependencies": {
     "ava": "^0.14.0",

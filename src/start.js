@@ -16,4 +16,4 @@ const db = bluebird.promisifyAll(new Nedb({
 // Create the server
 const server = createServer(db);
 server.listen(3141);
-console.log('Server started on port 3141');
+console.log('Server started on port 3141'); // eslint-disable-line no-console
