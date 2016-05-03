@@ -14,6 +14,12 @@ export default (database) => {
     ctx.body = await database.findAsync({});
   });
 
+  // Get image by id
+  router.get('/images/:id', async (ctx) => {
+    const image = await database.findOneAsync({ _id: ctx.params.id });
+    ctx.body = image;
+  });
+
   // Add image
   router.post('/images', async(ctx) => {
     const image = await database.insertAsync(ctx.request.body);

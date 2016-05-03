@@ -31,6 +31,18 @@ test('List images', (t) => {
     });
 });
 
+test('Get image by id', (t) => {
+  t.plan(2);
+
+  return supertest(t.context.server.listen())
+    .get('/api/images/R3HtE3jsFgS9amhf')
+    .expect(200)
+    .expect((res) => {
+      t.is(res.body.url, 'https://i.imgur.com/fjfPe5C.gif');
+      t.is(res.body.description, 'IT\'S MAGIC!');
+    });
+});
+
 test('Add image', async (t) => {
   t.plan(1);
 
