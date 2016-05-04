@@ -25,7 +25,7 @@ const Image = (props) => {
 
 Image.propTypes = {
   url: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
 };
 
 const Gallery = (props) => (

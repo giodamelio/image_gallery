@@ -9,7 +9,7 @@ export function addImage(tree, image) {
   })
   .then((res) => res.json())
   .then((body) => {
-    tree.push('images', body);
+    tree.shift('images', body);
   });
 }
 

@@ -14,7 +14,7 @@ const joi = bluebird.promisifyAll(originalJoi);
 // Schema for a new image
 const imageSchema = joi.object().keys({
   url: joi.string().required().uri(),
-  description: joi.string().max(255),
+  description: joi.string().empty('').max(255),
 });
 
 export default (database) => {
