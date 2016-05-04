@@ -1,30 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  Navbar,
-  Nav,
-  NavItem,
-} from 'react-bootstrap';
+import baobabReact from 'baobab-react/higher-order';
 
-const navbarInstance = (
-  <Navbar inverse>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <a href="/">Image Gallery</a>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      <Nav pullRight>
-        <NavItem eventKey={1} href="#">
-          <i className="fa fa-plus" aria-hidden="true"></i> Add Image
-        </NavItem>
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
-);
+import Navbar from './navbar';
+import Gallery from './gallery';
+import state from './state';
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Gallery />
+      </div>
+    );
+  }
+}
+
+const RootedApp = baobabReact.root(state, App);
 
 ReactDOM.render(
-  navbarInstance,
+  <RootedApp />,
   document.getElementById('app')
 );
