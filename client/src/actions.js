@@ -1,5 +1,16 @@
 export function addImage(tree, image) {
-  tree.push('images', image);
+  fetch('/api/images', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(image),
+  })
+  .then((res) => res.json())
+  .then((body) => {
+    tree.push('images', body);
+  });
 }
 
 export function showAddImageModel(tree, data) {
