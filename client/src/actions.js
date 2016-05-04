@@ -11,6 +11,13 @@ export function addImage(tree, image) {
   .then((body) => {
     tree.shift('images', body);
   });
+
+  // Sync with the server
+  fetch('/api/images')
+    .then((res) => res.json())
+    .then((body) => {
+      tree.set('images', body);
+    });
 }
 
 export function showAddImageModel(tree, data) {
