@@ -7,6 +7,8 @@ import koaStatic from 'koa-static';
 import bluebird from 'bluebird';
 import originalJoi from 'joi';
 
+import listImages from './list_images';
+
 const joi = bluebird.promisifyAll(originalJoi);
 
 // Schema for a new image
@@ -42,7 +44,7 @@ export default (database) => {
 
   // List images
   router.get('/images', async (ctx) => {
-    ctx.body = await database.findAsync({});
+    ctx.body = await listImages(database);
   });
 
   // Get image by id
