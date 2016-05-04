@@ -4,18 +4,16 @@ import baobabReact from 'baobab-react/higher-order';
 
 import Navbar from './navbar';
 import Gallery from './gallery';
+import AddImageModel from './addImageModel';
 import state from './state';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <Gallery />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <Navbar />
+    <Gallery />
+    <AddImageModel />
+  </div>
+);
 
 const RootedApp = baobabReact.root(state, App);
 
@@ -23,3 +21,4 @@ ReactDOM.render(
   <RootedApp />,
   document.getElementById('app')
 );
+console.log('Run "localStorage.debug = \'image_gallery:*\'" to see debug logging'); // eslint-disable-line no-console, max-len

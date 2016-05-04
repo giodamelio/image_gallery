@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   Navbar,
   Nav,
   NavItem,
 } from 'react-bootstrap';
+import { branch } from 'baobab-react/higher-order';
 
-export default class navbar extends React.Component {
+import * as actions from './actions';
+
+class navbar extends React.Component {
+  constructor() {
+    super();
+
+    this.addImage = this.addImage.bind(this);
+  }
+
+  addImage() {
+    this.props.dispatch(
+      actions.showAddImageModel,
+      true
+    );
+  }
+
   render() {
     return (
       <Navbar inverse>
@@ -17,7 +33,7 @@ export default class navbar extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem eventKey={1} href="#">
+            <NavItem eventKey={1} onClick={this.addImage}>
               <i className="fa fa-plus" aria-hidden="true"></i> Add Image
             </NavItem>
           </Nav>
@@ -26,3 +42,11 @@ export default class navbar extends React.Component {
     );
   }
 }
+
+navbar.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default branch({
+  isAddingImage: ['isAddingImage'],
+}, navbar);
