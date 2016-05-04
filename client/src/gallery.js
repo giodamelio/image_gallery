@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import baobabReact from 'baobab-react/higher-order';
+import { chunk } from 'lodash';
 
 const Image = (props) => {
   if (props.url.slice(-5) === '.webm') {
@@ -7,6 +8,7 @@ const Image = (props) => {
       <video
         src={props.url}
         className="img-responsive"
+        title={props.description}
         autoPlay
         autostart
         loop
@@ -19,6 +21,7 @@ const Image = (props) => {
       src={props.url}
       className="img-responsive"
       alt={props.description}
+      title={props.description}
     />
   );
 };
@@ -30,13 +33,19 @@ Image.propTypes = {
 
 const Gallery = (props) => (
   <div className="container">
-    <div className="row">
-      {props.images.map((image, index) => (
-        <div className="col-sm-4" key={index}>
-          <Image url={image.url} description={image.description} />
-        </div>
-      ))}
-    </div>
+    {chunk(props.images, 3).map((images, outerIndex) => (
+      <div className="row" key={outerIndex}>
+        {images.map((image, innerIndex) => (
+          <div className="col-sm-4" key={innerIndex}>
+            <h4>{image.description}</h4>
+            <Image
+              url={image.url}
+              description={image.description}
+            />
+          </div>
+        ))}
+      </div>
+    ))}
   </div>
 );
 
